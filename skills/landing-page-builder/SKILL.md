@@ -21,9 +21,24 @@ If the description is vague, ask one focused clarifying question. Do not over-in
 
 ### 2. Design
 
-Before writing code, commit to a bold aesthetic direction. Choose a specific tone from this spectrum and execute it with conviction:
+Tell the user: **"Designing your page…"**
+
+#### 2a. Propose a design direction
+
+Analyze the product, target customers, and tone to recommend **one** design direction that best fits. Draw from this aesthetic spectrum:
 
 - Brutally minimal, maximalist chaos, retro-futuristic, organic/natural, luxury/refined, playful/toy-like, editorial/magazine, brutalist/raw, art deco/geometric, soft/pastel, industrial/utilitarian
+
+Present your recommendation with:
+- **Name** — a short evocative label (e.g., "Neon Brutalist", "Warm Editorial")
+- **Vibe** — one sentence capturing the feel
+- **Key choices** — font pairing direction, color palette mood, layout approach
+
+Ask the user to confirm this direction, or say they'd like to see alternatives. If the user wants alternatives, propose **2–3 different directions** to choose from.
+
+#### 2b. Execute the confirmed direction
+
+Once the user confirms, commit to the direction fully and execute with conviction:
 
 **Typography**: Choose distinctive, characterful fonts from Google Fonts. Never default to Inter, Roboto, Arial, or system fonts. Pair a display font with a refined body font. Every landing page should use different fonts — never converge on the same choices.
 
@@ -48,6 +63,8 @@ Before writing code, commit to a bold aesthetic direction. Choose a specific ton
 Match the library to the page's aesthetic. Phosphor's weight variants are especially useful for matching typographic weight. Don't litter the page with icons — use them intentionally for feature lists, navigation, or CTAs. A page with 3 well-placed icons beats one with 20 generic ones.
 
 ### 3. Build
+
+Tell the user: **"Building your page…"**
 
 Generate a single `index.html` file. All CSS and JS inline. The file must be self-contained and deployable with no build step.
 
