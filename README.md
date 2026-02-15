@@ -25,18 +25,27 @@ Every generated page follows an opinionated design approach:
 
 Design guidelines are adapted from [Anthropic's frontend-design skill](https://github.com/anthropics/skills/tree/main/skills/frontend-design) and [Vercel's Web Interface Guidelines](https://github.com/vercel-labs/web-interface-guidelines).
 
-## Skill structure
+## Plugin structure
 
 ```
-landing-page-builder/
-├── SKILL.md                              # Workflow and design instructions
-├── scripts/deploy.sh                     # Vercel deployment (claimable, no auth)
-└── references/web-design-guidelines.md   # Accessibility and UX compliance rules
+.claude-plugin/
+├── plugin.json                                  # Plugin manifest
+└── marketplace.json                             # Marketplace catalog
+skills/
+└── landing-page-builder/
+    ├── SKILL.md                                 # Workflow and design instructions
+    ├── scripts/deploy.sh                        # Vercel deployment (claimable, no auth)
+    └── references/web-design-guidelines.md      # Accessibility and UX compliance rules
 ```
 
 ## Installation
 
-Download `landing-page-builder.skill` from [Releases](../../releases) or from the repo root, then add it to your Claude Code skills.
+Add the marketplace and install the plugin from within Claude Code:
+
+```
+/plugin marketplace add CyranoB/frontpage-builder-skill
+/plugin install landing-page-builder@frontpage-builder-skill
+```
 
 ## Credits
 

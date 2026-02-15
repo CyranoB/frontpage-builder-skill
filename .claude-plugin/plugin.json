@@ -1,0 +1,5 @@
+{
+  "name": "landing-page-builder",
+  "description": "Build and deploy polished landing pages to Vercel from a text description. Generates a single static HTML file with distinctive design and deploys it instantly — no authentication required.",
+  "version": "1.0.0"
+}
