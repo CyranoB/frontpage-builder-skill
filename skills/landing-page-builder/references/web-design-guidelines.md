@@ -14,6 +14,14 @@ Apply these rules when generating landing page HTML/CSS/JS.
 - Headings hierarchical `<h1>`–`<h6>`; include skip link for main content
 - `scroll-margin-top` on heading anchors
 
+## Icons
+
+- Load icon libraries via CDN `<script>` or `<link>` (consistent with Google Fonts pattern)
+- Use one icon library per page for visual consistency (Lucide, Phosphor, or Tabler)
+- Icon-only buttons need `aria-label`; decorative icons need `aria-hidden="true"`
+- Size icons consistently using CSS (`font-size` for webfonts, `width`/`height` for SVG)
+- Match icon stroke weight to typography weight when possible
+
 ## Focus States
 
 - Interactive elements need visible focus: `outline` or `box-shadow` on `:focus-visible`

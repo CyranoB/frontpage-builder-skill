@@ -37,6 +37,16 @@ Before writing code, commit to a bold aesthetic direction. Choose a specific ton
 
 **Anti-slop rule**: Never produce generic AI aesthetics — no purple-gradient-on-white, no card grids with rounded corners and drop shadows, no cookie-cutter hero sections. Each page must feel genuinely designed for its specific context.
 
+**Icons**: Pick one icon library per page based on the design direction:
+
+| Library | Best for | CDN | Usage |
+|---------|----------|-----|-------|
+| **Lucide** | Minimal, editorial, refined | `<script src="https://unpkg.com/lucide@latest"></script>` | `<i data-lucide="icon-name"></i>` + `lucide.createIcons()` |
+| **Phosphor Icons** | Playful, bold, expressive | `<script src="https://cdn.jsdelivr.net/npm/@phosphor-icons/web@2.1.2"></script>` | `<i class="ph ph-icon-name"></i>` (weights: `ph-thin`, `ph-light`, `ph`, `ph-bold`, `ph-fill`, `ph-duotone`) |
+| **Tabler Icons** | Feature-heavy, all-rounder (5,400+ icons) | `<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@tabler/icons-webfont@latest/tabler-icons.min.css">` | `<i class="ti ti-icon-name"></i>` |
+
+Match the library to the page's aesthetic. Phosphor's weight variants are especially useful for matching typographic weight. Don't litter the page with icons — use them intentionally for feature lists, navigation, or CTAs. A page with 3 well-placed icons beats one with 20 generic ones.
+
 ### 3. Build
 
 Generate a single `index.html` file. All CSS and JS inline. The file must be self-contained and deployable with no build step.
