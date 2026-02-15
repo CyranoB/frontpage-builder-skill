@@ -9,7 +9,7 @@
   "plugins": [
     {
       "name": "landing-page-builder",
-      "source": ".",
+      "source": "./",
       "description": "Build and deploy polished landing pages to Vercel from a text description",
       "version": "1.0.0",
       "keywords": ["landing-page", "frontend", "vercel", "deploy"],
