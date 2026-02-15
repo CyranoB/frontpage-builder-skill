@@ -72,19 +72,11 @@ Requirements:
 - Accessible: form labels, `aria-label` on icon buttons, `:focus-visible` states, skip link
 - For detailed compliance rules, read `references/web-design-guidelines.md`
 
-Write the file to a temporary project directory:
-
-```bash
-mkdir -p /tmp/landing-page && cat > /tmp/landing-page/index.html
-```
+Write the file to a temporary project directory.
 
 ### 4. Deploy
 
-Deploy immediately after generating the HTML:
-
-```bash
-bash scripts/deploy.sh /tmp/landing-page
-```
+Deploy immediately after generating the HTML. Use scripts/deploy.sh to deploy the landing page.
 
 Present results:
 
