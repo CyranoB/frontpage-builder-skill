@@ -4,7 +4,7 @@ This file provides guidance to Claude Code (claude.ai/code) when working with co
 
 ## Project Overview
 
-Landing Page Builder is a Claude Code skill (plugin) that generates self-contained landing pages from natural-language descriptions and deploys them to Vercel using claimable deployments (no auth required). It's distributed via the Claude Code plugin marketplace.
+Landing Page Builder is a Claude Code skill (plugin) that generates self-contained landing pages from natural-language descriptions and deploys them to Vercel using claimable deployments (no auth required). It's distributed via the Claude Code plugin marketplace and also compatible with OpenCode (which reads `SKILL.md` files from `.claude/skills/` directories).
 
 ## Architecture
 
@@ -15,35 +15,63 @@ This is a no-build, no-dependencies project. There is no package.json, no compil
 ├── plugin.json            # Plugin manifest (name, version, description)
 └── marketplace.json       # Marketplace catalog entry (owner, keywords, category)
 skills/landing-page-builder/
-├── SKILL.md               # Core skill: workflow steps and design instructions
+├── SKILL.md               # Core skill: YAML frontmatter triggers + workflow steps + design instructions
 ├── scripts/deploy.sh      # Bash script that tars and POSTs to Vercel's deploy API
-└── references/web-design-guidelines.md  # Accessibility/UX compliance rules
+└── references/web-design-guidelines.md  # Accessibility/UX compliance rules (read by SKILL.md step 3)
 ```
 
 **Skill workflow (defined in SKILL.md):**
-1. Gather context from user's description
-2. Choose a bold, distinctive design direction (never generic)
+1. Gather context from user's description (ask at most one clarifying question)
+2. Propose a design direction, get user confirmation
 3. Generate a single `index.html` with inline CSS/JS to `/tmp/landing-page/`
-4. Run `deploy.sh` to package and deploy to Vercel, returning preview + claim URLs
+4. Run `deploy.sh /tmp/landing-page/` to package and deploy to Vercel, returning preview + claim URLs
 
-**Deployment:** `scripts/deploy.sh` creates a tarball and POSTs it to `https://claude-skills-deploy.vercel.com/api/deploy`. No API keys needed.
+## Key Files
+
+**`SKILL.md` frontmatter** controls when the skill auto-triggers in Claude Code. The `description` field is what Claude uses as trigger keywords — edit it to change when the skill activates. The `name` field must match the directory name.
+
+**`deploy.sh` contract:**
+- Takes one argument: path to a directory (or a `.tgz` file)
+- Writes status messages to **stderr**; outputs JSON response to **stdout**
+- Auto-renames a single non-`index.html` file in the directory to `index.html`
+- Returns JSON: `{ previewUrl, claimUrl, deploymentId, projectId }`
+- Deploy endpoint: `https://claude-skills-deploy.vercel.com/api/deploy`
+
+**`web-design-guidelines.md`** is referenced by step 3 of SKILL.md for accessibility and UX compliance rules. It is not read at install time — only when the skill executes.
+
+## Version Management
+
+Both `plugin.json` and `marketplace.json` have a `"version"` field. Keep them in sync when releasing. The `marketplace.json` `source` field must remain `"./"` (with trailing slash) to pass schema validation.
 
 ## Key Design Constraints
 
 - Generated pages must use **distinctive aesthetics** — no generic AI patterns (purple gradients, card grids, Inter/Roboto fonts)
 - All HTML must be **accessible**: semantic elements, ARIA labels, keyboard navigation, `prefers-reduced-motion` support
 - Pages are **fully self-contained**: single HTML file with inline CSS/JS and Google Fonts via CDN
-- The `marketplace.json` `source` field must be `"./"` (with trailing slash) to pass schema validation
 
 ## Installation & Testing
 
-Install in Claude Code:
+**Claude Code:**
 ```
 /plugin marketplace add CyranoB/frontpage-builder-skill
 /plugin install landing-page-builder@frontpage-builder-skill
 ```
 
-To test the skill, prompt Claude Code with something like:
+**OpenCode** (manual file copy — no marketplace command):
+```bash
+git clone https://github.com/CyranoB/frontpage-builder-skill.git /tmp/frontpage-builder-skill
+mkdir -p .claude/skills/landing-page-builder
+cp -r /tmp/frontpage-builder-skill/skills/landing-page-builder/* .claude/skills/landing-page-builder/
+```
+
+Test the deploy script directly (bypassing the skill):
+```bash
+mkdir -p /tmp/landing-page
+echo '<html><body>test</body></html>' > /tmp/landing-page/index.html
+bash skills/landing-page-builder/scripts/deploy.sh /tmp/landing-page
+```
+
+To test the full skill workflow, prompt Claude Code with:
 ```
 Build me a landing page for a dog walking app called PawPals
 ```

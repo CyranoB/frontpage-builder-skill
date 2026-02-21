@@ -40,11 +40,30 @@ skills/
 
 ## Installation
 
+### Claude Code
+
 Add the marketplace and install the plugin from within Claude Code:
 
 ```
 /plugin marketplace add CyranoB/frontpage-builder-skill
 /plugin install landing-page-builder@frontpage-builder-skill
+```
+
+### OpenCode
+
+[OpenCode](https://github.com/sst/opencode) natively reads `SKILL.md` files from `.claude/skills/` directories. Clone the repo and copy the skill files into your project:
+
+```bash
+git clone https://github.com/CyranoB/frontpage-builder-skill.git /tmp/frontpage-builder-skill
+mkdir -p .claude/skills/landing-page-builder
+cp -r /tmp/frontpage-builder-skill/skills/landing-page-builder/* .claude/skills/landing-page-builder/
+```
+
+For a global install (available in all projects):
+
+```bash
+mkdir -p ~/.claude/skills/landing-page-builder
+cp -r /tmp/frontpage-builder-skill/skills/landing-page-builder/* ~/.claude/skills/landing-page-builder/
 ```
 
 ## Credits

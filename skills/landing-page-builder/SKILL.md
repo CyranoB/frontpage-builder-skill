@@ -42,7 +42,30 @@ Once the user confirms, commit to the direction fully and execute with convictio
 
 **Typography**: Choose distinctive, characterful fonts from Google Fonts. Never default to Inter, Roboto, Arial, or system fonts. Pair a display font with a refined body font. Every landing page should use different fonts — never converge on the same choices.
 
-**Color**: Commit to a cohesive palette. Use CSS variables. Dominant colors with sharp accents outperform timid, evenly-distributed palettes. Vary between light and dark themes across generations.
+**Color**: Commit to a cohesive palette. Define all tokens in a `:root` block at the top of your `<style>` tag before writing any other CSS. Every color and spacing value in the stylesheet must reference a token — no hardcoded hex values or magic pixel sizes outside `:root`.
+
+```css
+:root {
+  /* Color tokens */
+  --color-bg: ...;
+  --color-surface: ...;
+  --color-text: ...;
+  --color-text-muted: ...;
+  --color-primary: ...;
+  --color-accent: ...;
+  --color-border: ...;
+
+  /* Scale tokens */
+  --radius: ...;
+  --space: ...;        /* base unit; use calc(var(--space) * N) for multiples */
+
+  /* Typography tokens */
+  --font-display: ...;
+  --font-body: ...;
+}
+```
+
+Dominant colors with sharp accents outperform timid, evenly-distributed palettes. Vary between light and dark themes across generations.
 
 **Motion**: Focus on high-impact moments — one well-orchestrated page load with staggered reveals (`animation-delay`) creates more delight than scattered micro-interactions. Use scroll-triggered animations and surprising hover states. CSS-only solutions preferred.
 
@@ -78,6 +101,10 @@ Structure:
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <meta name="theme-color" content="...">
   <title>...</title>
+
+  <!-- SEO -->
+  <meta name="description" content="...">
+
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=...&display=swap" rel="stylesheet">
@@ -97,6 +124,8 @@ Requirements:
 - Honor `prefers-reduced-motion`
 - Semantic HTML: `<header>`, `<main>`, `<section>`, `<footer>`, `<nav>`
 - Accessible: form labels, `aria-label` on icon buttons, `:focus-visible` states, skip link
+- Include Open Graph (`og:title`, `og:description`, `og:type`) and Twitter Card (`twitter:card`, `twitter:title`, `twitter:description`) meta tags when the page is for a publicly shared product or service. Omit them for personal or internal pages, or if the user opts out.
+- Include a `<script type="application/ld+json">` block in `<head>` with structured data matching the page content. Use `Organization` for company/startup pages, `Product` for product launches, `LocalBusiness` for local services, or another appropriate schema.org type. Populate `name`, `description`, and `url` (leave `url` empty — it's filled post-deploy).
 - For detailed compliance rules, read `references/web-design-guidelines.md`
 
 Write the file to a temporary project directory.
